@@ -46,6 +46,9 @@ function BoxContainer() {
   const [shrinkComponent, setShrinkComponent] = useState({});
   const [searched, setSearched] = useState(mockDataForSearch);
 
+  // New Feature: Time Complexity 
+  const [complexityText, setComplexityText] = useState('');
+
   useEffect(() => {
     setInputTextLength(inputText.toString().length);
   });
@@ -124,8 +127,11 @@ function BoxContainer() {
   const handleSubmit = async (event) => {
     console.log(JSON.stringify(inputText));
     event.preventDefault();
-    const requestURI = process.env.BACKEND_API_URI;
 
+    // Determines where we send the HTTP Request
+    const requestURI = process.env.BACKEND_API_URI; 
+
+    // 
     const json = {
       text: inputText,
       language: 'JavaScript',
@@ -142,7 +148,10 @@ function BoxContainer() {
         'Access-Control-Allow-Origin': '*',
       },
     });
-    setOutputText(response.data);
+    // **********
+    // Need to invoke setComplexityText based on whatever the server responds with
+    setOutputText(response.data.text);
+    setComplexityText(response.data.complexityText);
   };
 
   const handleHistoryOpen = () => {
@@ -183,7 +192,7 @@ function BoxContainer() {
           copyNormal={CopyToClipBoardNormal}
           copySudo={CopyToClipBoardSudo}
           />
-          <TimeComplexity/>
+          <TimeComplexity complexityText={complexityText}/>
         </div>
       </main>
     </>
