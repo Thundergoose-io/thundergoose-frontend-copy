@@ -6,6 +6,7 @@ import SearchedResults from './SearchedResults';
 import Shark from './static/shark.png';
 import { Button } from '@mui/material';
 import SignInButtons from './SignInButtons';
+import TimeComplexity from './TimeComplexity';
 
 // mock data for searched:
 // to test first update username in the state to any mock string as well
@@ -176,11 +177,14 @@ function BoxContainer() {
         <div id='imgWrapper'>
           <img id='shark' src={Shark}></img>
         </div>
-        <OutputBox
+        <div class="output-side">
+          <OutputBox
           outputText={outputText}
           copyNormal={CopyToClipBoardNormal}
           copySudo={CopyToClipBoardSudo}
-        />
+          />
+          <TimeComplexity/>
+        </div>
       </main>
     </>
   );
