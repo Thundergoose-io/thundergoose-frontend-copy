@@ -13,7 +13,8 @@ export default function (props) {
     <div id='Output' className='boxes' style={inlineStyle}>
       <TextField
         multiline
-        rows={20}
+        rows={7} 
+        // Can change rows to 10 to reduce the size
         placeholder='Plain English'
         variant='filled'
         fullWidth

@@ -6,6 +6,7 @@ import SearchedResults from './SearchedResults';
 import Shark from './static/shark.png';
 import { Button } from '@mui/material';
 import SignInButtons from './SignInButtons';
+import TimeComplexity from './TimeComplexity';
 
 // mock data for searched:
 // to test first update username in the state to any mock string as well
@@ -44,6 +45,9 @@ function BoxContainer() {
   const [open, setHistoryOpen] = useState(false);
   const [shrinkComponent, setShrinkComponent] = useState({});
   const [searched, setSearched] = useState(mockDataForSearch);
+
+  // New Feature: Time Complexity 
+  const [complexityText, setComplexityText] = useState('');
 
   useEffect(() => {
     setInputTextLength(inputText.toString().length);
@@ -123,8 +127,11 @@ function BoxContainer() {
   const handleSubmit = async (event) => {
     console.log(JSON.stringify(inputText));
     event.preventDefault();
-    const requestURI = process.env.BACKEND_API_URI;
 
+    // Determines where we send the HTTP Request
+    const requestURI = process.env.BACKEND_API_URI; 
+
+    // 
     const json = {
       text: inputText,
       language: 'JavaScript',
@@ -141,7 +148,10 @@ function BoxContainer() {
         'Access-Control-Allow-Origin': '*',
       },
     });
-    setOutputText(response.data);
+    // **********
+    // Need to invoke setComplexityText based on whatever the server responds with
+    setOutputText(response.data.text);
+    setComplexityText(response.data.complexityText);
   };
 
   const handleHistoryOpen = () => {
@@ -176,11 +186,14 @@ function BoxContainer() {
         <div id='imgWrapper'>
           <img id='shark' src={Shark}></img>
         </div>
-        <OutputBox
+        <div class="output-side">
+          <OutputBox
           outputText={outputText}
           copyNormal={CopyToClipBoardNormal}
           copySudo={CopyToClipBoardSudo}
-        />
+          />
+          <TimeComplexity complexityText={complexityText}/>
+        </div>
       </main>
     </>
   );
