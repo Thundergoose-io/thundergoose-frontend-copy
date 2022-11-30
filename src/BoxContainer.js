@@ -40,7 +40,7 @@ function BoxContainer() {
   const [inputTextLength, setInputTextLength] = useState(0);
   const [inputLanguage, setInputLanguage] = useState('Javascript');
   const [outputText, setOutputText] = useState('');
-  const [username, setUsername] = useState('Robbie');
+  const [username, setUsername] = useState('');
   const [open, setHistoryOpen] = useState(false);
   const [shrinkComponent, setShrinkComponent] = useState({});
   const [searched, setSearched] = useState(mockDataForSearch);
