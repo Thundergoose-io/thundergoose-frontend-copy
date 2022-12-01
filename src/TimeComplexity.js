@@ -7,6 +7,8 @@ export default function (props) {
     return <> 
        <TextField
         multiline
+        style={{ fontFamily: 'Monospace', backgroundColor: 'white', opacity: '50%' }}
+
         rows={11}
         value={props.complexityText}
         placeholder="Time Complexity"

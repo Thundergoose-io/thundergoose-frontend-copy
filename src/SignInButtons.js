@@ -8,6 +8,9 @@ import {
   Box,
 } from '@mui/material';
 import axios from 'axios';
+import githubLogo from './static/github-logo.png';
+
+
 
 function SignInButtons(props) {
   const { setUsername, stateUsername } = props;
@@ -58,6 +61,7 @@ function SignInButtons(props) {
         .then((result) => result.data);
       console.log('USERNAME ------------------------------------------');
       console.log(UserData);
+      if (UserData) setUsername(UserData.login);
     }
   };
   useEffect(() => {
@@ -127,12 +131,12 @@ function SignInButtons(props) {
     console.log('signedup');
   };
 
-  // const handleLogout = (e) => {
-  //   e.preventDefault();
-  //   // change state of username to empty string
-  //   setUsername('');
-  //   // setLoginStatus(false);
-  // };
+  const handleLogout = (e) => {
+    e.preventDefault();
+    // change state of username to empty string
+    setUsername('');
+    // setLoginStatus(false);
+  };
 
   if (stateUsername !== '') {
     return (
@@ -141,7 +145,7 @@ function SignInButtons(props) {
           id='logout'
           variant='contained'
           color='secondary'
-          // onClick={handleLogout}
+          onClick={handleLogout}
         >
           Log Out
         </Button>
@@ -151,6 +155,7 @@ function SignInButtons(props) {
   return (
     <div id='SignInButtons'>
       <Button
+        style={{ paddingTop: '10px', margin: 2, backgroundColor: 'lightblue', color: 'black' }}
         id='signin'
         variant='contained'
         color='secondary'
@@ -196,14 +201,24 @@ function SignInButtons(props) {
             >
               Sign In
             </Button>
-            <div>
-              <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.GITHUB_REDIRECT_URL}&path=${'/'}&scope=user:email`}>GitHub Sign In</a>
-            </div>
+            <Button
+            fullWidth
+            variant='contained'
+            sx={{ mt: 3, mb: 2 }}
+            color='secondary'
+            >
+              <a id="github-signin" href={`https://github.com/login/oauth/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.GITHUB_REDIRECT_URL}&path=${'/'}&scope=user:email`}>
+                <img id="github-logo" src={githubLogo} />
+                GitHub Sign In</a>
+            </Button>
           </Box>
         </DialogContent>
       </Dialog>
 
-      <Button id='signup' color='secondary' onClick={handleClickSignUpOpen}>
+      <Button id='signup' 
+          style={{ paddingTop: '10px', margin: 2, backgroundColor: 'lightblue', color: 'black' }}
+          // color='secondary' 
+          onClick={handleClickSignUpOpen}>
         Sign Up
       </Button>
       <Dialog open={openSignUp} onClose={handleSignUpClose}>

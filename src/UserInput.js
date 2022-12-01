@@ -20,7 +20,7 @@ export default function (props) {
       <TextField
         InputLabelProps={props.shrinkComponent}
         inputProps={{ maxLength: 250 }}
-        style={{ fontFamily: 'Monospace' }}
+        style={{ fontFamily: 'Monospace', backgroundColor: 'white', opacity: '50%' }}
         name='input Text'
         id='filled-multiline-static'
         label='Paste your Code'
@@ -35,7 +35,7 @@ export default function (props) {
         helperText={characterCount}
       />
       <Button
-        style={{ paddingTop: '10px' }}
+        style={{ paddingTop: '10px' , backgroundColor: 'lemonchiffon', color: 'black'}}
         fullWidth
         startIcon={<KeyboardDoubleArrowRightIcon />}
         endIcon={<KeyboardDoubleArrowLeftIcon />}
@@ -44,7 +44,7 @@ export default function (props) {
         onClick={(event) => props.handleSubmit(event)}
         sx={{ width: 'auto' }}
       >
-        Sharkify
+        Goosify
       </Button>
     </div>
   );
