@@ -57,10 +57,27 @@ function SignInButtons(props) {
     // snackbar
   };
 
+  const handleGithubLoginSubmit = async (e) => {
+    e.preventDefault();
+    const requestURI = `${process.env.BACKEND_OAUTH_URI}`;
+    await axios({
+      method: 'post',
+      url: requestURI,
+      headers:
+      {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    }).then((response) => console.log(response))
+      .then((data) => console.log(data));
+    // setLoginStatus(true);
+    // snackbar
+  };
+
   const handleSignUpSubmit = (e) => {
     e.preventDefault();
     const requestURI = `${process.env.BACKEND_USER_URI}/new`;
-    console.log(e.currentTarget)
+    console.log(e.currentTarget);
     const data = new FormData(e.currentTarget);
     const username = data.get('username');
     const email = data.get('email');
@@ -156,6 +173,22 @@ function SignInButtons(props) {
             >
               Sign In
             </Button>
+            <Box
+              component='form'
+              noValidate
+              sx={{ mt: 1 }}
+            >
+              <Button
+                type='submit'
+                fullWidth
+                variant='contained'
+                sx={{ mt: 3, mb: 2 }}
+                color='secondary'
+                onClick={handleGithubLoginSubmit}
+              >
+                Sign In With Github
+              </Button>
+            </Box>
           </Box>
         </DialogContent>
       </Dialog>
