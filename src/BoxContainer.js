@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Button } from '@mui/material';
 import UserInput from './UserInput';
 import OutputBox from './OutputBox';
 import SearchedResults from './SearchedResults';
 import Shark from './static/shark.png';
-import { Button } from '@mui/material';
 import SignInButtons from './SignInButtons';
 
 // mock data for searched:
@@ -48,12 +48,6 @@ function BoxContainer() {
   useEffect(() => {
     setInputTextLength(inputText.toString().length);
   });
-
-  useEffect(() => {
-    if(req.query){
-
-    }
-  })
 
   // // functionality to get previously researched queries from the database
   // useEffect(() => {

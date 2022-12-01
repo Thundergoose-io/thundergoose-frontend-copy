@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   TextField,
@@ -31,6 +31,30 @@ function SignInButtons(props) {
   const handleSignUpClose = () => {
     setOpenSignUp(false);
   };
+
+  const fetchTheToken = async () => {
+    const requestURI = `${process.env.BACKEND_OAUTH_URI}`;
+    const params = new URLSearchParams(window.location.search);
+    const gitHubCode = params.get('code');
+    if (gitHubCode !== null) {
+      console.log(gitHubCode);
+      const json = {
+        code: gitHubCode,
+      };
+      console.log(json);
+      const response = await axios.post(requestURI, json, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
+        },
+      });
+      console.log(response);
+    }
+  };
+  useEffect(() => {
+    fetchTheToken();
+  });
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
