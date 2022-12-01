@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import UserInput from './UserInput';
 import OutputBox from './OutputBox';
 import SearchedResults from './SearchedResults';
-import Shark from './static/shark.png';
+import Goose from './static/goose.png';
 import SignInButtons from './SignInButtons';
 import TimeComplexity from './TimeComplexity';
 
@@ -184,15 +184,19 @@ function BoxContainer() {
           inputTextLength={inputTextLength}
         />
         <div id='imgWrapper'>
-          <img id='shark' src={Shark}></img>
+          <img id='goose' src={Goose}></img>
         </div>
-        <div class="output-side">
+        <div className="output-side">
           <OutputBox
+          username={username}
           outputText={outputText}
           copyNormal={CopyToClipBoardNormal}
           copySudo={CopyToClipBoardSudo}
           />
-          <TimeComplexity complexityText={complexityText}/>
+          { username !== '' &&
+            <TimeComplexity complexityText={complexityText}/>
+          }
+          
         </div>
       </main>
     </>

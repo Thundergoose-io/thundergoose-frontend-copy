@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <div id='header'>
-        <h1>Sudo Shark</h1>
+        <h1 id="main-header"> Sudo Goose-O</h1>
       </div>
       <BoxContainer />
     </>
