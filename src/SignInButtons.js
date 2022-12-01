@@ -9,7 +9,6 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 
-const { CLIENT_ID, CLIENT_SECRET, GITHUB_REDIRECT_URL} = process.env;
 function SignInButtons(props) {
   const { setUsername, stateUsername } = props;
 

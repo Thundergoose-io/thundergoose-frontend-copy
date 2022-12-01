@@ -49,6 +49,12 @@ function BoxContainer() {
     setInputTextLength(inputText.toString().length);
   });
 
+  useEffect(() => {
+    if(req.query){
+
+    }
+  })
+
   // // functionality to get previously researched queries from the database
   // useEffect(() => {
   //   if (username) {
