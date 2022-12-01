@@ -49,7 +49,15 @@ function SignInButtons(props) {
           'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
         },
       });
-      console.log(response);
+      const accessToken = response.data;
+      console.log(response.data);
+      const UserData = await axios
+        .get('https://api.github.com/user', {
+          headers: { Authorization: `token ${accessToken}` },
+        })
+        .then((result) => result.data);
+      console.log('USERNAME ------------------------------------------');
+      console.log(UserData);
     }
   };
   useEffect(() => {
@@ -189,7 +197,7 @@ function SignInButtons(props) {
               Sign In
             </Button>
             <div>
-              <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri${process.env.GITHUB_REDIRECT_URL},path=${'/'}&scope=user:email`}>GitHub Sign In</a>
+              <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.GITHUB_REDIRECT_URL}&path=${'/'}&scope=user:email`}>GitHub Sign In</a>
             </div>
           </Box>
         </DialogContent>
