@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   TextField,
@@ -32,6 +32,38 @@ function SignInButtons(props) {
     setOpenSignUp(false);
   };
 
+  const fetchTheToken = async () => {
+    const requestURI = `${process.env.BACKEND_OAUTH_URI}`;
+    const params = new URLSearchParams(window.location.search);
+    const gitHubCode = params.get('code');
+    if (gitHubCode !== null) {
+      console.log(gitHubCode);
+      const json = {
+        code: gitHubCode,
+      };
+      console.log(json);
+      const response = await axios.post(requestURI, json, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
+        },
+      });
+      const accessToken = response.data;
+      console.log(response.data);
+      const UserData = await axios
+        .get('https://api.github.com/user', {
+          headers: { Authorization: `token ${accessToken}` },
+        })
+        .then((result) => result.data);
+      console.log('USERNAME ------------------------------------------');
+      console.log(UserData);
+    }
+  };
+  useEffect(() => {
+    fetchTheToken();
+  });
+
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     const requestURI = `${process.env.BACKEND_USER_URI}/login`;
@@ -56,11 +88,19 @@ function SignInButtons(props) {
     // setLoginStatus(true);
     // snackbar
   };
-
+  // const handleGitHubLogin = (e) => {
+  //   e.preventDefault();
+  //   const reqUri = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri${GITHUB_REDIRECT_URL},path=${path}&scope=user:email`;
+  //   const login = async () => {
+  //     const response = await axios.get(reqUri);
+  //     console.log(response.data);
+  //   };
+  //   login();
+  // };
   const handleSignUpSubmit = (e) => {
     e.preventDefault();
     const requestURI = `${process.env.BACKEND_USER_URI}/new`;
-    console.log(e.currentTarget)
+    console.log(e.currentTarget);
     const data = new FormData(e.currentTarget);
     const username = data.get('username');
     const email = data.get('email');
@@ -79,7 +119,7 @@ function SignInButtons(props) {
         password,
         email,
       });
-      console.log("this is a response", response);
+      console.log('this is a response', response);
       setUsername(response.data);
       setOpenSignUp(false);
     };
@@ -156,6 +196,9 @@ function SignInButtons(props) {
             >
               Sign In
             </Button>
+            <div>
+              <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.GITHUB_REDIRECT_URL}&path=${'/'}&scope=user:email`}>GitHub Sign In</a>
+            </div>
           </Box>
         </DialogContent>
       </Dialog>
