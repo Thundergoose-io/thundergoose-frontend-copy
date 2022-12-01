@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 
+const { CLIENT_ID, CLIENT_SECRET, GITHUB_REDIRECT_URL} = process.env;
 function SignInButtons(props) {
   const { setUsername, stateUsername } = props;
 
@@ -56,11 +57,19 @@ function SignInButtons(props) {
     // setLoginStatus(true);
     // snackbar
   };
-
+  // const handleGitHubLogin = (e) => {
+  //   e.preventDefault();
+  //   const reqUri = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri${GITHUB_REDIRECT_URL},path=${path}&scope=user:email`;
+  //   const login = async () => {
+  //     const response = await axios.get(reqUri);
+  //     console.log(response.data);
+  //   };
+  //   login();
+  // };
   const handleSignUpSubmit = (e) => {
     e.preventDefault();
     const requestURI = `${process.env.BACKEND_USER_URI}/new`;
-    console.log(e.currentTarget)
+    console.log(e.currentTarget);
     const data = new FormData(e.currentTarget);
     const username = data.get('username');
     const email = data.get('email');
@@ -79,7 +88,7 @@ function SignInButtons(props) {
         password,
         email,
       });
-      console.log("this is a response", response);
+      console.log('this is a response', response);
       setUsername(response.data);
       setOpenSignUp(false);
     };
@@ -156,6 +165,9 @@ function SignInButtons(props) {
             >
               Sign In
             </Button>
+            <div>
+              <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri${process.env.GITHUB_REDIRECT_URL},path=${'/'}&scope=user:email`}>GitHub Sign In</a>
+            </div>
           </Box>
         </DialogContent>
       </Dialog>
